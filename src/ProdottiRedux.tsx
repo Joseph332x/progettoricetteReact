@@ -12,6 +12,7 @@ import { toggle } from "./ricette_redux/preferitiSlice"
 import preferitiIcon from '../src/assets/favorite.svg'
 import notPreferitiIcon from '../src/assets/not-favorite.svg'
 import Card from './components/Card' 
+import { togglea } from './ricette_redux/themeSlice'
 
 
 export const ProdottiRedux=()=>{
@@ -25,7 +26,8 @@ return (<Provider store={store}>
 
 const ProdottiLista = () => {
     const dispatch = useDispatch();
-    
+    const theme = useSelector((state: State) => state.theme.value);
+
     const meal = useSelector((state: State) => state.meal.value);
     const preferiti = useSelector((state: State) => state.preferiti.value);
     
@@ -36,14 +38,27 @@ const ProdottiLista = () => {
             })
     }, [])
 
+
+  useEffect(() => {
+    const html = document.documentElement;
+    if (theme === "dark") {
+      html.classList.add("dark");
+    } else {
+      html.classList.remove("dark");
+    }
+  }, [theme]);
+
+
+
    return (
     <>
-      <div>Numero preferiti: {preferiti.length}</div> {/* Modificato per chiarezza */}
-
-      {/* 1. Il container principale della pagina/sezione */}
+      <div>Numero preferiti: {preferiti.length}</div> 
+      <span>Tema Corrente: {theme}</span>
+      <button onClick={() => dispatch(togglea())}>Toggle</button>
+    
       <div className="container mx-auto p-4">
-        {/* 2. L'elemento che funge da CONTENITORE GRID per TUTTE le card */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"> {/* Aggiunto lg:grid-cols-4 come esempio */}
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"> 
           {meal.length > 0 ? (
             meal.map(item => (
               <Card
@@ -51,12 +66,12 @@ const ProdottiLista = () => {
                 id={item.idMeal}
                 title={item.strMeal}
                 img={item.strMealThumb}
-                isPreferito={preferiti.includes(Number(item.idMeal))} // Assicurati che preferiti contenga IDs numerici se idMeal è stringa
+                isPreferito={preferiti.includes(Number(item.idMeal))} 
                 onToggle={() => dispatch(toggle(Number(item.idMeal)))}
               />
             ))
           ) : (
-            <p>Caricamento dei pasti o nessun pasto da mostrare...</p> // Messaggio di fallback
+            <p>Caricamento dei piatti..</p>
           )}
         </div>
       </div>
