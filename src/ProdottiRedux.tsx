@@ -86,10 +86,8 @@ const ProdottiLista = () => {
             ))}
         </ul>
     </div>
-</div>
-      
-      
       <button onClick={() => dispatch(togglea())}>Dark Mode</button>
+      </div>
       <div> {preferiti.length}</div> 
       <div className="container mx-auto p-4">
         
