@@ -6,7 +6,7 @@ export const preferitiSlice = createSlice({
     value: [] as number[],
   },
   reducers: {
-    toggle: (state, action: PayloadAction<number>) => {
+    toggleFavourite: (state, action: PayloadAction<number>) => {
       const exists = state.value.includes(action.payload);
       console.log("exists");
       if (exists) {
@@ -16,5 +16,5 @@ export const preferitiSlice = createSlice({
   },
 });
 
-export const { toggle } = preferitiSlice.actions;
+export const { toggleFavourite } = preferitiSlice.actions;
 export const preferiteReducer = preferitiSlice.reducer;

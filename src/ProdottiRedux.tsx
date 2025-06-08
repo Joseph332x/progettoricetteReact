@@ -5,11 +5,11 @@ import  { State,store } from './ricette_redux/store'
 import { useEffect } from 'react'
 
 import { set } from "./ricette_redux/ricetteSlice"
-import { toggle } from "./ricette_redux/preferitiSlice"
+import { toggleFavourite } from "./ricette_redux/preferitiSlice"
 
 
 import Card from './components/Card' 
-import { togglea } from './ricette_redux/themeSlice'
+import { toggleDarkMode } from './ricette_redux/themeSlice'
 import { areaFlags, areas, setArea } from './ricette_redux/areaSlice'
 import { initFlowbite } from 'flowbite'
 
@@ -86,7 +86,7 @@ const ProdottiLista = () => {
             ))}
         </ul>
     </div>
-      <button onClick={() => dispatch(togglea())}>Dark Mode</button>
+      <button onClick={() => dispatch(toggleDarkMode())}>Dark Mode</button>
       </div>
       <div> {preferiti.length}</div> 
       <div className="container mx-auto p-4">
@@ -100,7 +100,7 @@ const ProdottiLista = () => {
                 title={item.strMeal}
                 img={item.strMealThumb}
                 isPreferito={preferiti.includes(Number(item.idMeal))} 
-                onToggle={() => dispatch(toggle(Number(item.idMeal)))}
+                onToggle={() => dispatch(toggleFavourite(Number(item.idMeal)))}
               />
             ))
           ) : (
